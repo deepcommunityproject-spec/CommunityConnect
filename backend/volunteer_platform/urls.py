@@ -8,9 +8,9 @@ from django.conf.urls.static import static
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Volunteer Management API",
+        title="CommunityConnect API",
         default_version='v1',
-        description="Session-based Volunteer & Organization API",
+        description="Session-based Volunteer & Organization API for CommunityConnect",
     ),
     public=True,
     permission_classes=[AllowAny],
@@ -25,3 +25,7 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = "CommunityConnect Admin"
+admin.site.site_title = "CommunityConnect Admin Portal"
+admin.site.index_title = "Welcome to CommunityConnect"
