@@ -37,6 +37,7 @@ class VolunteerViewSet(ViewSet):
         if request.method == 'GET':
             return Response({
                 "name": profile.name,
+                "email": profile.user.email,
                 "bio": profile.bio,
                 "image": profile.image.url if profile.image else None,
                 "phone": profile.phone,
@@ -69,7 +70,7 @@ class VolunteerViewSet(ViewSet):
             "start_date": o.start_date,
             "end_date": o.end_date,
             "created_at": o.created_at
-        } for o in Opportunity.objects.all().order_by('-created_at')]
+        } for o in Opportunity.objects.filter(end_date__gte=timezone.now()).order_by('-created_at')]
 
         return Response(data)
 
@@ -138,5 +139,30 @@ class VolunteerViewSet(ViewSet):
             "location": app.opportunity.location,
             "applied_at": app.created_at
         } for app in applications]
+
+        return Response(data)
+
+    @swagger_auto_schema(
+        method='get',
+        operation_summary="View Opportunity Detail",
+        operation_description="Retrieve detailed information about a specific opportunity."
+    )
+    @action(detail=True, methods=['get'])
+    def opportunity_detail(self, request, pk=None):
+
+        opportunity = get_object_or_404(Opportunity, id=pk)
+
+        data = {
+            "id": opportunity.id,
+            "title": opportunity.title,
+            "description": opportunity.description,
+            "organization": opportunity.organization.name,
+            "organization_image": opportunity.organization.image.url if opportunity.organization.image else None,
+            "location": opportunity.location,
+            "start_date": opportunity.start_date,
+            "end_date": opportunity.end_date,
+            "total_slots": opportunity.total_slots,
+            "created_at": opportunity.created_at,
+        }
 
         return Response(data)

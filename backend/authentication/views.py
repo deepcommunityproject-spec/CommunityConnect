@@ -57,8 +57,11 @@ class AuthViewSet(ViewSet):
         if not user.check_password(data['password']):
             return Response({"error": "Invalid credentials"}, status=401)
 
+        request.session.flush()  # Clear old session first
+
         request.session['user_id'] = user.id
         request.session['role'] = user.role
+        request.session.modified = True  # Force save session
 
         return Response({
             "message": "Login successful",
@@ -73,3 +76,16 @@ class AuthViewSet(ViewSet):
     def logout(self, request):
         request.session.flush()
         return Response({"message": "Logged out"})
+
+    # For React only: Check and verify user. 
+    @action(detail=False, methods=['get'])
+    def check_session(self, request):
+        user_id = request.session.get('user_id')
+
+        if not user_id:
+            return Response({"authenticated": False}, status=401)
+
+        return Response({
+            "authenticated": True,
+            "role": request.session.get('role')
+        })

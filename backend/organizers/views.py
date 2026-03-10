@@ -6,15 +6,16 @@ from .models import OrganizationProfile, Opportunity, Application
 from .serializers import OpportunitySerializer, ApplicationStatusSerializer, OrganizationProfileSerializer
 from rest_framework.decorators import action
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 
 def get_user(request):
     uid = request.session.get('user_id')
     return AuthUser.objects.filter(id=uid).first()
 
 class OrganizerViewSet(ViewSet):
-    parser_classes = [MultiPartParser, FormParser]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     @swagger_auto_schema(
         method='post',
@@ -34,6 +35,7 @@ class OrganizerViewSet(ViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save(organization=org)
 
+        # Optional Change: return Response(serializer.data, status=201)
         return Response({"message": "Opportunity created"})
 
     @swagger_auto_schema(
@@ -140,6 +142,7 @@ class OrganizerViewSet(ViewSet):
         if request.method == 'GET':
             return Response({
                 "name": org.name,
+                "email": org.user.email,
                 "bio": org.bio,
                 "image": org.image.url if org.image else None,
                 "contact_email": org.contact_email,
@@ -173,7 +176,9 @@ class OrganizerViewSet(ViewSet):
         org = get_object_or_404(OrganizationProfile, user=user)
 
         applications = Application.objects.filter(
-            opportunity__organization=org
+        opportunity__organization=org).exclude(
+            status='pending',
+            opportunity__end_date__gt=timezone.now()
         ).order_by('-created_at')
 
         data = [{
@@ -271,3 +276,29 @@ class OrganizerViewSet(ViewSet):
         } for o in opportunities]
 
         return Response(data)
+
+    @swagger_auto_schema(
+        method='delete',
+        operation_summary="Delete Opportunity",
+        operation_description="Allow organizer to delete their own opportunity."
+    )
+    @action(detail=True, methods=['delete'])
+    def delete_opportunity(self, request, pk=None):
+
+        user = get_user(request)
+        if not user or user.role != 'organizer':
+            return Response({"error": "Unauthorized"}, status=401)
+
+        org = get_object_or_404(OrganizationProfile, user=user)
+
+        opportunity = Opportunity.objects.filter(
+            id=pk,
+            organization=org
+        ).first()
+
+        if not opportunity:
+            return Response({"error": "Not allowed"}, status=403)
+
+        opportunity.delete()
+
+        return Response({"message": "Opportunity deleted"})

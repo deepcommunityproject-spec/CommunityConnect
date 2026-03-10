@@ -127,18 +127,22 @@ PUT    /users/profile/
 GET    /users/feed/
 POST   /users/{id}/apply/
 GET    /users/history/
+GET    /users/{id}/opportunity_detail/
 ```
 
 ### Organizer
 
 ```
 POST   /organizers/create_opportunity/
+PUT    /organizers/{id}/update_opportunity/
+GET    /organizers/my_opportunities/
 GET    /organizers/pending_applications/
 PUT    /organizers/{id}/update_application/
 GET    /organizers/profile/
 PUT    /organizers/profile/
 GET    /organizers/history/
 GET    /organizers/{id}/view-volunteer/
+DELETE /organizers/{id}/delete_opportunity/
 ```
 
 ---
