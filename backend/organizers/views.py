@@ -9,6 +9,7 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from django.db.models import Q
 
 def get_user(request):
     uid = request.session.get('user_id')
@@ -251,7 +252,7 @@ class OrganizerViewSet(ViewSet):
     @swagger_auto_schema(
         method='get',
         operation_summary="View My Opportunities",
-        operation_description="Retrieve all opportunities created by the logged-in organizer, ordered by latest first."
+        operation_description="Returns opportunities that are active and not expired."
     )
     @action(detail=False, methods=['get'])
     def my_opportunities(self, request):
@@ -263,7 +264,9 @@ class OrganizerViewSet(ViewSet):
         org = get_object_or_404(OrganizationProfile, user=user)
 
         opportunities = Opportunity.objects.filter(
-            organization=org
+            organization=org,
+            is_active=True,
+            end_date__gte=timezone.now()
         ).order_by('-created_at')
 
         data = [{
@@ -315,12 +318,12 @@ class OrganizerViewSet(ViewSet):
         })
 
     @swagger_auto_schema(
-        method='delete',
-        operation_summary="Delete Opportunity",
-        operation_description="Allow organizer to delete their own opportunity."
+        method='patch',
+        operation_summary="Deactivate Opportunity",
+        operation_description="Organizer can deactivate an opportunity instead of deleting it."
     )
-    @action(detail=True, methods=['delete'])
-    def delete_opportunity(self, request, pk=None):
+    @action(detail=True, methods=['patch'])
+    def deactivate_opportunity(self, request, pk=None):
 
         user = get_user(request)
         if not user or user.role != 'organizer':
@@ -328,14 +331,50 @@ class OrganizerViewSet(ViewSet):
 
         org = get_object_or_404(OrganizationProfile, user=user)
 
-        opportunity = Opportunity.objects.filter(
+        opportunity = get_object_or_404(
+            Opportunity,
             id=pk,
             organization=org
-        ).first()
+        )
 
-        if not opportunity:
-            return Response({"error": "Not allowed"}, status=403)
+        opportunity.is_active = False
+        opportunity.save()
 
-        opportunity.delete()
+        return Response({
+            "message": "Opportunity deactivated successfully"
+        })
 
-        return Response({"message": "Opportunity deleted"})
+    @swagger_auto_schema(
+        method='get',
+        operation_summary="Previous Opportunities",
+        operation_description="Returns expired or manually deactivated opportunities."
+    )
+    @action(detail=False, methods=['get'])
+    def previous_opportunities(self, request):
+
+        user = get_user(request)
+        if not user or user.role != 'organizer':
+            return Response({"error": "Unauthorized"}, status=401)
+
+        org = get_object_or_404(OrganizationProfile, user=user)
+
+        opportunities = Opportunity.objects.filter(
+            organization=org
+        ).filter(
+            Q(is_active=False) |
+            Q(end_date__lt=timezone.now())
+        ).order_by('-created_at')
+
+        data = [{
+            "id": o.id,
+            "title": o.title,
+            "description": o.description,
+            "location": o.location,
+            "start_date": o.start_date,
+            "end_date": o.end_date,
+            "is_active": o.is_active,
+            "created_at": o.created_at
+        } for o in opportunities]
+
+        return Response(data)
+ 

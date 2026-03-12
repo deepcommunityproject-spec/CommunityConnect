@@ -37,6 +37,7 @@ class Opportunity(models.Model):
     end_date = models.DateTimeField(default=timezone.now)
     total_slots = models.PositiveIntegerField(default=0)
     slots_filled = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
 
     def clean(self):
         if self.start_date and self.end_date:

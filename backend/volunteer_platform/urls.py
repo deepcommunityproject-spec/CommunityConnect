@@ -25,3 +25,9 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+"""
+Pending Work:
+1. Pending README update.
+2. Point System.
+"""

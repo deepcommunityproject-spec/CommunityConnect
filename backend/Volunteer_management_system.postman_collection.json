@@ -16,7 +16,7 @@
           "formdata": [
             {
               "key": "email",
-              "value": "ggg@gmail.com",
+              "value": "eee@gmail.com",
               "type": "text",
               "uuid": "c25bccac-7125-494b-971f-de299dc725a0"
             },
@@ -28,13 +28,13 @@
             },
             {
               "key": "role",
-              "value": "volunteer",
+              "value": "organizer",
               "type": "text",
               "uuid": "64277258-b5b3-4c17-aac6-55c7ce4cfe8d"
             },
             {
               "key": "name",
-              "value": "Priya",
+              "value": "Mukesh",
               "type": "text",
               "uuid": "39bf3261-6224-4c51-a9f7-1c6446d25c91"
             }
@@ -540,6 +540,360 @@
       ]
     },
     {
+      "name": "organizer_opportunity_create",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "title",
+              "value": "Free Eye Checkup",
+              "type": "text",
+              "uuid": "697100ab-0f06-40b2-b5d8-e3216828c045"
+            },
+            {
+              "key": "description",
+              "value": "Maintain your eyes as we are maintaining our hairs",
+              "type": "text",
+              "uuid": "163c23a3-af52-4a5b-86f8-e2fa89c46a97"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/organizers/create_opportunity/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "organizers",
+            "create_opportunity",
+            ""
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "created",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Tree Plantation Drive",
+                  "type": "text",
+                  "uuid": "697100ab-0f06-40b2-b5d8-e3216828c045"
+                },
+                {
+                  "key": "description",
+                  "value": "Join us to plant 200 trees this Sunday in City Park.",
+                  "type": "text",
+                  "uuid": "163c23a3-af52-4a5b-86f8-e2fa89c46a97"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/organizers/opportunity/",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "organizers",
+                "opportunity",
+                ""
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 12 Feb 2026 17:29:40 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "WSGIServer/0.2 CPython/3.11.0"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Allow",
+              "value": "POST, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "33"
+            },
+            {
+              "key": "Vary",
+              "value": "Cookie"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Cross-Origin-Opener-Policy",
+              "value": "same-origin"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Opportunity created\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "organizer_application",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/organizers/pending_applications/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "organizers",
+            "pending_applications",
+            ""
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Application_1",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/organizers/applications/",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "organizers",
+                "applications",
+                ""
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 12 Feb 2026 18:43:20 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "WSGIServer/0.2 CPython/3.11.0"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "85"
+            },
+            {
+              "key": "Vary",
+              "value": "Cookie"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Cross-Origin-Opener-Policy",
+              "value": "same-origin"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"volunteer\": \"Nilay\",\n        \"opportunity\": \"Blood Donation Camp\",\n        \"status\": \"pending\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "organizer_application_status",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "status",
+              "value": "rejected",
+              "type": "text",
+              "uuid": "4986a44f-f6be-46dd-9553-5eb7a884ab1d"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/organizers/5/update_application/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "organizers",
+            "5",
+            "update_application",
+            ""
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "accepted",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "status",
+                  "value": "accepted",
+                  "type": "text",
+                  "uuid": "4986a44f-f6be-46dd-9553-5eb7a884ab1d"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/organizers/application/1/",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "organizers",
+                "application",
+                "1",
+                ""
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 12 Feb 2026 18:52:30 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "WSGIServer/0.2 CPython/3.11.0"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Allow",
+              "value": "POST, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "33"
+            },
+            {
+              "key": "Vary",
+              "value": "Cookie"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Cross-Origin-Opener-Policy",
+              "value": "same-origin"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Application updated\"\n}"
+        }
+      ]
+    },
+    {
       "name": "user_get_feeds",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
@@ -763,7 +1117,8 @@
               "key": "bio",
               "value": "Tree Plantation Drive",
               "type": "text",
-              "uuid": "697100ab-0f06-40b2-b5d8-e3216828c045"
+              "uuid": "697100ab-0f06-40b2-b5d8-e3216828c045",
+              "disabled": true
             },
             {
               "key": "name",
@@ -776,12 +1131,6 @@
               "type": "file",
               "uuid": "7a9fd33c-6c5a-4950-9a71-5b5db3b85cb2",
               "src": "/C:/Django/toy_on_rent/media/media/profile_images/user1.jfif"
-            },
-            {
-              "key": "phone",
-              "value": "8098099080",
-              "type": "text",
-              "uuid": "781bafa2-5ca8-40bb-9ea8-5c15f4fafb49"
             }
           ]
         },
@@ -1009,7 +1358,7 @@
           "formdata": []
         },
         "url": {
-          "raw": "http://127.0.0.1:8000/users/1/apply/",
+          "raw": "http://127.0.0.1:8000/users/2/apply/",
           "protocol": "http",
           "host": [
             "127",
@@ -1020,7 +1369,7 @@
           "port": "8000",
           "path": [
             "users",
-            "1",
+            "2",
             "apply",
             ""
           ]
@@ -1211,231 +1560,6 @@
       ]
     },
     {
-      "name": "organizer_application_status",
-      "request": {
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "status",
-              "value": "rejected",
-              "type": "text",
-              "uuid": "4986a44f-f6be-46dd-9553-5eb7a884ab1d"
-            }
-          ]
-        },
-        "url": {
-          "raw": "http://127.0.0.1:8000/organizers/8/update_application/",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "8000",
-          "path": [
-            "organizers",
-            "8",
-            "update_application",
-            ""
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "accepted",
-          "originalRequest": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "status",
-                  "value": "accepted",
-                  "type": "text",
-                  "uuid": "4986a44f-f6be-46dd-9553-5eb7a884ab1d"
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/organizers/application/1/",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "organizers",
-                "application",
-                "1",
-                ""
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Date",
-              "value": "Thu, 12 Feb 2026 18:52:30 GMT"
-            },
-            {
-              "key": "Server",
-              "value": "WSGIServer/0.2 CPython/3.11.0"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Allow",
-              "value": "POST, OPTIONS"
-            },
-            {
-              "key": "X-Frame-Options",
-              "value": "DENY"
-            },
-            {
-              "key": "Content-Length",
-              "value": "33"
-            },
-            {
-              "key": "Vary",
-              "value": "Cookie"
-            },
-            {
-              "key": "X-Content-Type-Options",
-              "value": "nosniff"
-            },
-            {
-              "key": "Referrer-Policy",
-              "value": "same-origin"
-            },
-            {
-              "key": "Cross-Origin-Opener-Policy",
-              "value": "same-origin"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"message\": \"Application updated\"\n}"
-        }
-      ]
-    },
-    {
-      "name": "organizer_pending_application",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "GET",
-        "header": [],
-        "body": {
-          "mode": "formdata",
-          "formdata": []
-        },
-        "url": {
-          "raw": "http://127.0.0.1:8000/organizers/pending_applications/",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "8000",
-          "path": [
-            "organizers",
-            "pending_applications",
-            ""
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "Application_1",
-          "originalRequest": {
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": []
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/organizers/applications/",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "organizers",
-                "applications",
-                ""
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Date",
-              "value": "Thu, 12 Feb 2026 18:43:20 GMT"
-            },
-            {
-              "key": "Server",
-              "value": "WSGIServer/0.2 CPython/3.11.0"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Allow",
-              "value": "GET, HEAD, OPTIONS"
-            },
-            {
-              "key": "X-Frame-Options",
-              "value": "DENY"
-            },
-            {
-              "key": "Content-Length",
-              "value": "85"
-            },
-            {
-              "key": "Vary",
-              "value": "Cookie"
-            },
-            {
-              "key": "X-Content-Type-Options",
-              "value": "nosniff"
-            },
-            {
-              "key": "Referrer-Policy",
-              "value": "same-origin"
-            },
-            {
-              "key": "Cross-Origin-Opener-Policy",
-              "value": "same-origin"
-            }
-          ],
-          "cookie": [],
-          "body": "[\n    {\n        \"id\": 1,\n        \"volunteer\": \"Nilay\",\n        \"opportunity\": \"Blood Donation Camp\",\n        \"status\": \"pending\"\n    }\n]"
-        }
-      ]
-    },
-    {
       "name": "organizer_profile",
       "request": {
         "method": "PUT",
@@ -1447,37 +1571,14 @@
               "key": "bio",
               "value": "This website for for hardworking volunteers",
               "type": "text",
-              "uuid": "8bbdac88-e06a-464e-a9c9-d1fb1074f8d8"
+              "uuid": "8bbdac88-e06a-464e-a9c9-d1fb1074f8d8",
+              "disabled": true
             },
             {
               "key": "image",
               "type": "file",
               "uuid": "71983a90-6a66-4ceb-bd3f-e009e672f130",
               "src": "/C:/Django/toy_on_rent/media/media/profile_images/user2.jfif"
-            },
-            {
-              "key": "contact_phone",
-              "value": "0980909090",
-              "type": "text",
-              "uuid": "6ff3bcce-2ed3-4eeb-9161-81d64a7b9372"
-            },
-            {
-              "key": "contact_email",
-              "value": "abc@gmail.com",
-              "type": "text",
-              "uuid": "d05d111e-3083-40c5-9c3d-8b7bd2704a8c"
-            },
-            {
-              "key": "website",
-              "value": "https://www.google.com",
-              "type": "text",
-              "uuid": "75a3f6b2-5261-4912-bae9-e9b2a1945fe1"
-            },
-            {
-              "key": "address",
-              "value": "abc",
-              "type": "text",
-              "uuid": "6885b724-6c6f-44c8-9668-4edd027709b8"
             }
           ]
         },
@@ -1694,7 +1795,7 @@
           "formdata": []
         },
         "url": {
-          "raw": "http://127.0.0.1:8000/organizers/5/view-volunteer/",
+          "raw": "http://127.0.0.1:8000/organizers/1/view-volunteer/",
           "protocol": "http",
           "host": [
             "127",
@@ -1705,7 +1806,7 @@
           "port": "8000",
           "path": [
             "organizers",
-            "5",
+            "1",
             "view-volunteer",
             ""
           ]
@@ -1786,400 +1887,6 @@
           ],
           "cookie": [],
           "body": "{\n    \"id\": 1,\n    \"name\": \"Nilay\",\n    \"bio\": \"Tree Plantation Drive\",\n    \"image\": \"/media/volunteer/avatar.png\"\n}"
-        }
-      ]
-    },
-    {
-      "name": "organizer_create_opportunity",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Cookie",
-            "value": "sessionid=iky0y06vruqok5dxq6bea62eh9s873dj"
-          }
-        ],
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "type": "text",
-              "key": "title",
-              "value": "Free"
-            },
-            {
-              "type": "text",
-              "key": "description",
-              "value": "Maintain"
-            },
-            {
-              "type": "text",
-              "key": "location",
-              "value": "Mumbai"
-            },
-            {
-              "type": "text",
-              "key": "start_date",
-              "value": "2026-03-10"
-            },
-            {
-              "type": "text",
-              "key": "end_date",
-              "value": "2026-03-12"
-            },
-            {
-              "type": "text",
-              "key": "slots_available",
-              "value": "20"
-            }
-          ]
-        },
-        "url": {
-          "raw": "http://localhost:8000/organizers/create_opportunity/",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8000",
-          "path": [
-            "organizers",
-            "create_opportunity",
-            ""
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "opportunity_created",
-          "originalRequest": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Cookie",
-                "value": "sessionid=iky0y06vruqok5dxq6bea62eh9s873dj"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "type": "text",
-                  "key": "title",
-                  "value": "Free"
-                },
-                {
-                  "type": "text",
-                  "key": "description",
-                  "value": "Maintain"
-                },
-                {
-                  "type": "text",
-                  "key": "location",
-                  "value": "Mumbai"
-                },
-                {
-                  "type": "text",
-                  "key": "start_date",
-                  "value": "2026-03-10"
-                },
-                {
-                  "type": "text",
-                  "key": "end_date",
-                  "value": "2026-03-12"
-                },
-                {
-                  "type": "text",
-                  "key": "slots_available",
-                  "value": "20"
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://localhost:8000/organizers/create_opportunity/",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "organizers",
-                "create_opportunity",
-                ""
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Date",
-              "value": "Mon, 23 Feb 2026 17:01:57 GMT"
-            },
-            {
-              "key": "Server",
-              "value": "WSGIServer/0.2 CPython/3.11.0"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Allow",
-              "value": "POST, OPTIONS"
-            },
-            {
-              "key": "X-Frame-Options",
-              "value": "DENY"
-            },
-            {
-              "key": "Content-Length",
-              "value": "33"
-            },
-            {
-              "key": "Vary",
-              "value": "Cookie, origin"
-            },
-            {
-              "key": "X-Content-Type-Options",
-              "value": "nosniff"
-            },
-            {
-              "key": "Referrer-Policy",
-              "value": "same-origin"
-            },
-            {
-              "key": "Cross-Origin-Opener-Policy",
-              "value": "same-origin"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"message\": \"Opportunity created\"\n}"
-        }
-      ]
-    },
-    {
-      "name": "organizer_opportunity",
-      "request": {
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "title",
-              "value": "Free1",
-              "type": "text",
-              "uuid": "55030363-7068-40a9-8cc6-bb9a33e7d336"
-            }
-          ]
-        },
-        "url": {
-          "raw": "http://127.0.0.1:8000/organizers/5/update_opportunity/",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "8000",
-          "path": [
-            "organizers",
-            "5",
-            "update_opportunity",
-            ""
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "title_updated",
-          "originalRequest": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "title",
-                  "value": "Free1",
-                  "type": "text",
-                  "uuid": "55030363-7068-40a9-8cc6-bb9a33e7d336"
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/organizers/5/update_opportunity/",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "organizers",
-                "5",
-                "update_opportunity",
-                ""
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Date",
-              "value": "Sun, 01 Mar 2026 12:57:03 GMT"
-            },
-            {
-              "key": "Server",
-              "value": "WSGIServer/0.2 CPython/3.11.0"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Allow",
-              "value": "PUT, OPTIONS"
-            },
-            {
-              "key": "X-Frame-Options",
-              "value": "DENY"
-            },
-            {
-              "key": "Content-Length",
-              "value": "33"
-            },
-            {
-              "key": "Vary",
-              "value": "Cookie, origin"
-            },
-            {
-              "key": "X-Content-Type-Options",
-              "value": "nosniff"
-            },
-            {
-              "key": "Referrer-Policy",
-              "value": "same-origin"
-            },
-            {
-              "key": "Cross-Origin-Opener-Policy",
-              "value": "same-origin"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"message\": \"Opportunity updated\"\n}"
-        }
-      ]
-    },
-    {
-      "name": "organizer_my_opportunities",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "GET",
-        "header": [],
-        "body": {
-          "mode": "formdata",
-          "formdata": []
-        },
-        "url": {
-          "raw": "http://127.0.0.1:8000/organizers/my_opportunities/",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "8000",
-          "path": [
-            "organizers",
-            "my_opportunities",
-            ""
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "my_opportunities",
-          "originalRequest": {
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": []
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/organizers/my_opportunities/",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "organizers",
-                "my_opportunities",
-                ""
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Date",
-              "value": "Sun, 01 Mar 2026 12:18:15 GMT"
-            },
-            {
-              "key": "Server",
-              "value": "WSGIServer/0.2 CPython/3.11.0"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Allow",
-              "value": "GET, HEAD, OPTIONS"
-            },
-            {
-              "key": "X-Frame-Options",
-              "value": "DENY"
-            },
-            {
-              "key": "Content-Length",
-              "value": "235"
-            },
-            {
-              "key": "Vary",
-              "value": "Cookie, origin"
-            },
-            {
-              "key": "X-Content-Type-Options",
-              "value": "nosniff"
-            },
-            {
-              "key": "Referrer-Policy",
-              "value": "same-origin"
-            },
-            {
-              "key": "Cross-Origin-Opener-Policy",
-              "value": "same-origin"
-            }
-          ],
-          "cookie": [],
-          "body": "[\n    {\n        \"id\": 5,\n        \"title\": \"Free\",\n        \"description\": \"Maintain\",\n        \"location\": \"Mumbai\",\n        \"start_date\": \"2026-02-23T17:01:57.583679Z\",\n        \"end_date\": \"2026-02-23T17:01:57.583679Z\",\n        \"slots_available\": 20,\n        \"slots_filled\": 0,\n        \"created_at\": \"2026-02-23T17:01:57.583679Z\"\n    }\n]"
         }
       ]
     }

@@ -144,7 +144,8 @@ PUT    /organizers/profile/
 GET    /organizers/history/
 GET    /organizers/{id}/view-volunteer/
 GET    /organizers/{id}/opportunity_detail/
-DELETE /organizers/{id}/delete_opportunity/
+GET    /organizers/previous_opportunities/
+PATCH  /organizers/{id}/deactivate_opportunity/
 ```
 
 ---
