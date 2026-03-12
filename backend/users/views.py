@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from authentication.models import AuthUser
-from .models import VolunteerProfile
+from .models import VolunteerProfile, OpportunityFeedback
 from .serializers import VolunteerProfileSerializer
 from organizers.models import Opportunity, Application, OrganizationProfile
 from rest_framework.decorators import action
@@ -145,13 +145,34 @@ class VolunteerViewSet(ViewSet):
 
     @swagger_auto_schema(
         method='get',
-        operation_summary="View Opportunity Detail",
-        operation_description="Retrieve detailed information about a specific opportunity."
+        operation_summary="Opportunity Detail",
+        operation_description="Returns opportunity details including feedback comments."
     )
     @action(detail=True, methods=['get'])
     def opportunity_detail(self, request, pk=None):
-
         opportunity = get_object_or_404(Opportunity, id=pk)
+        user = get_user(request)
+        volunteer = None
+        if user and user.role == "volunteer":
+            volunteer = VolunteerProfile.objects.filter(user=user).first()
+
+        feedbacks = OpportunityFeedback.objects.filter(
+            opportunity=opportunity
+        )
+        feedback_data = []
+
+        for f in feedbacks:
+            is_my_comment = False
+            if volunteer and f.volunteer_id == volunteer.id:
+                is_my_comment = True
+
+            feedback_data.append({
+                "id": f.id,
+                "volunteer_name": f.volunteer.name,
+                "comment": f.comment,
+                "created_at": f.created_at,
+                "is_my_comment": is_my_comment
+            })
 
         data = {
             "id": opportunity.id,
@@ -165,6 +186,8 @@ class VolunteerViewSet(ViewSet):
             "end_date": opportunity.end_date,
             "total_slots": opportunity.total_slots,
             "created_at": opportunity.created_at,
+            "slots_filled": opportunity.slots_filled,
+            "feedbacks": feedback_data
         }
 
         return Response(data)
@@ -176,9 +199,7 @@ class VolunteerViewSet(ViewSet):
     )
     @action(detail=True, methods=['get'])
     def organization_detail(self, request, pk=None):
-
         org = OrganizationProfile.objects.filter(id=pk).first()
-
         if not org:
             return Response({"error": "Organization not found"}, status=404)
 
@@ -192,4 +213,61 @@ class VolunteerViewSet(ViewSet):
             "website": org.website,
             "address": org.address,
             "created_at": org.created_at
+        })
+
+    @swagger_auto_schema(
+        method='post',
+        operation_summary="Add Feedback",
+        operation_description="Volunteer can add feedback comment to an opportunity."
+    )
+    @action(detail=True, methods=['post'])
+    def add_feedback(self, request, pk=None):
+        user = get_user(request)
+
+        if not user or user.role != "volunteer":
+            return Response({"error": "Unauthorized"}, status=401)
+
+        volunteer = get_object_or_404(VolunteerProfile, user=user)
+        opportunity = get_object_or_404(Opportunity, id=pk)
+        comment = request.data.get("comment")
+
+        if not comment:
+            return Response({"error": "Comment is required"}, status=400)
+
+        feedback = OpportunityFeedback.objects.create(
+            opportunity=opportunity,
+            volunteer=volunteer,
+            comment=comment
+        )
+
+        return Response({
+            "message": "Feedback added successfully",
+            "feedback_id": feedback.id
+        })
+
+    @swagger_auto_schema(
+        method='delete',
+        operation_summary="Delete Feedback",
+        operation_description="Volunteer can delete their own feedback."
+    )
+    @action(
+        detail=False,
+        methods=['delete'],
+        url_path='delete_feedback/(?P<feedback_id>[^/.]+)'
+    )
+    def delete_feedback(self, request, feedback_id=None):
+        user = get_user(request)
+        if not user or user.role != "volunteer":
+            return Response({"error": "Unauthorized"}, status=401)
+
+        volunteer = get_object_or_404(VolunteerProfile, user=user)
+        feedback = get_object_or_404(
+            OpportunityFeedback,
+            id=feedback_id,
+            volunteer=volunteer
+        )
+        feedback.delete()
+
+        return Response({
+            "message": "Feedback deleted successfully"
         })

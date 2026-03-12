@@ -21,4 +21,33 @@ class VolunteerProfile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name    
+        return self.name
+
+class OpportunityFeedback(models.Model):
+    opportunity = models.ForeignKey(
+        'organizers.Opportunity',
+        on_delete=models.CASCADE,
+        related_name='feedbacks'
+    )
+    volunteer = models.ForeignKey(
+        'users.VolunteerProfile',
+        on_delete=models.CASCADE,
+        related_name='opportunity_feedbacks'
+    )
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['opportunity', 'volunteer'],
+                name='unique_feedback_per_volunteer'
+            )
+        ]
+        indexes = [
+            models.Index(fields=['opportunity', '-created_at'])
+        ]
+
+    def __str__(self):
+        return f"{self.volunteer.name} - {self.opportunity.title}"
