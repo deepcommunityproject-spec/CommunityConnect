@@ -27,7 +27,7 @@ share/python-wheels/
 MANIFEST
 media/organization
 media/volunteer
-
+media/blog_covers
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

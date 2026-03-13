@@ -129,6 +129,9 @@ POST   /users/{id}/apply/
 GET    /users/history/
 GET    /users/{id}/opportunity_detail/
 GET    /users/{id}/organization_detail/
+PATCH  /users/{id}/withdraw_application/
+POST   /users/{id}/add_feedback/
+DELETE /users/delete_feedback/{id}/
 ```
 
 ### Organizer
