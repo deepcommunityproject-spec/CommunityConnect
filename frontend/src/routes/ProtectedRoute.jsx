@@ -7,7 +7,6 @@ const ProtectedRoute = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    // Check if the user has an active, valid session
     const checkAuth = async () => {
       try {
         await axiosInstance.get("auth/check_session/");
@@ -24,9 +23,8 @@ const ProtectedRoute = ({ children }) => {
 
   if (loading) return null;
 
-  // Utilize 'replace' so the unauthenticated user isn't stuck back-looping
   if (!isAuth) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" />;
   }
 
   return children;
