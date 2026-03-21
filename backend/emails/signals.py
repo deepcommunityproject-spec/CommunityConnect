@@ -8,3 +8,6 @@ opportunity_created = Signal()
 
 # Signal sent when an application status is updated
 application_status_changed = Signal()
+
+# Signal sent when a password reset OTP is requested
+otp_requested = Signal()

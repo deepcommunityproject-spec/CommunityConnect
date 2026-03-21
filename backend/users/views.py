@@ -235,6 +235,10 @@ class VolunteerViewSet(ViewSet):
         if not comment:
             return Response({"error": "Comment is required"}, status=400)
 
+        # Check for existing feedback
+        if OpportunityFeedback.objects.filter(opportunity=opportunity, volunteer=volunteer).exists():
+            return Response({"error": "You have already added feedback for this opportunity"}, status=400)
+
         feedback = OpportunityFeedback.objects.create(
             opportunity=opportunity,
             volunteer=volunteer,

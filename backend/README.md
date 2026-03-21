@@ -20,7 +20,7 @@ This platform allows:
 * Django REST Framework
 * drf-yasg (Swagger)
 * SQLite
-* Session-based authentication
+* JWT (JSON Web Token) authentication
 
 ---
 
@@ -33,6 +33,7 @@ This platform allows:
 * Apply / withdraw applications
 * View application history
 * Add & delete feedback
+* Forgot Password (OTP)
 
 ---
 
@@ -57,13 +58,14 @@ This platform allows:
 
 ---
 
-### 📬 Email Notifications
+### 📬 Email Notifications (SendGrid)
 
 * Sent on:
 
   * Registration
   * Application status update
   * Opportunity creation
+  * Password Reset (OTP)
 
 ---
 
@@ -217,6 +219,5 @@ Pagination:
 * Search & filtering
 * Blog categories / tags
 * Comments on blogs
-* JWT authentication
 
 ---

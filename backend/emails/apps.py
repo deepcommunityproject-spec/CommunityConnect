@@ -6,4 +6,10 @@ class EmailsConfig(AppConfig):
     name = 'emails'
 
     def ready(self):
-        import emails.receivers
+        import logging
+        logger = logging.getLogger(__name__)
+        try:
+            import emails.receivers
+            logger.info("Emails app signals registered successfully.")
+        except Exception as e:
+            logger.error(f"Failed to register emails signals: {e}", exc_info=True)

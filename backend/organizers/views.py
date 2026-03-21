@@ -307,17 +307,20 @@ class OrganizerViewSet(ViewSet):
 
         org = get_object_or_404(OrganizationProfile, user=user)
 
+        # Fetch opportunity with related data in ONE go
         opportunity = Opportunity.objects.filter(
             id=pk,
             organization=org
-        ).first()
+        ).prefetch_related(
+            "feedbacks__volunteer__user",
+            "application_set__volunteer__user"
+        ).select_related().first()
 
         if not opportunity:
             return Response({"error": "Not allowed"}, status=403)
 
-        applications = Application.objects.filter(
-            opportunity=opportunity
-        ).select_related("volunteer")
+        # Applications (already prefetched)
+        applications = opportunity.application_set.all().order_by('-created_at')
 
         volunteers = [{
             "id": a.volunteer.id,
@@ -326,6 +329,16 @@ class OrganizerViewSet(ViewSet):
             "status": a.status,
             "applied_at": a.created_at
         } for a in applications]
+
+        # Feedbacks (already prefetched)
+        feedback_list = [{
+            "id": f.id,
+            "volunteer_id": f.volunteer.id,
+            "name": f.volunteer.name,
+            "email": f.volunteer.user.email,
+            "comment": f.comment,
+            "created_at": f.created_at
+        } for f in opportunity.feedbacks.all()]
 
         return Response({
             "id": opportunity.id,
@@ -337,7 +350,8 @@ class OrganizerViewSet(ViewSet):
             "total_slots": opportunity.total_slots,
             "slots_filled": opportunity.slots_filled,
             "created_at": opportunity.created_at,
-            "volunteers": volunteers
+            "volunteers": volunteers,
+            "feedbacks": feedback_list
         })
 
     @swagger_auto_schema(

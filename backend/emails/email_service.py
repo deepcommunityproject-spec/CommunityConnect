@@ -1,11 +1,14 @@
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
 
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 # ---------------------------------------------------
-# CORE SEND FUNCTION (SendGrid API)
+# CORE SEND FUNCTION (Django Email API with SendGrid Backend)
 # ---------------------------------------------------
 
 def send_html_email(subject, template, context, recipient_list):
@@ -13,20 +16,19 @@ def send_html_email(subject, template, context, recipient_list):
     html_content = render_to_string(template, context)
 
     try:
-        sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
-
-        for email in recipient_list:
-            message = Mail(
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                to_emails=email,
-                subject=subject,
-                html_content=html_content,
-            )
-
-            sg.send(message)
+        email = EmailMultiAlternatives(
+            subject=subject,
+            body="",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[settings.DEFAULT_FROM_EMAIL],
+            bcc=recipient_list,
+        )
+        email.attach_alternative(html_content, "text/html")
+        email.send(fail_silently=False)
+        logger.info(f"Email sent successfully to {recipient_list}")
 
     except Exception as e:
-        print("Email Error:", str(e))
+        logger.error(f"Email Failure to {recipient_list}: {str(e)}", exc_info=True)
 
 
 # ---------------------------------------------------
@@ -90,4 +92,21 @@ def send_application_status_email(application):
         template="emails/application_status_update.html",
         context=context,
         recipient_list=[application.volunteer.user.email],
+    )
+
+# ---------------------------------------------------
+# 4️⃣ OTP / Forgot Password Email
+# ---------------------------------------------------
+
+def send_otp_email(user, otp):
+
+    context = {
+        "otp": otp,
+    }
+
+    send_html_email(
+        subject="Your Password Reset OTP",
+        template="emails/otp_email.html",
+        context=context,
+        recipient_list=[user.email],
     )
