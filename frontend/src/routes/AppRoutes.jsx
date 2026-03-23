@@ -48,6 +48,10 @@ const LayoutWrapper = ({ children }) => {
   const location = useLocation();
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
+  // Pages that manage their own top padding (hero sections handle navbar offset)
+  const noPaddingRoutes = ['/'];
+  const shouldSkipPadding = noPaddingRoutes.includes(location.pathname);
+
   return (
     <Box
       sx={{
@@ -58,7 +62,7 @@ const LayoutWrapper = ({ children }) => {
     >
       {!shouldHideNavbar && <Navbar />}
 
-      <Box sx={{ flex: 1, pt: !shouldHideNavbar ? '80px' : 0 }}>
+      <Box sx={{ flex: 1, pt: (!shouldHideNavbar && !shouldSkipPadding) ? '80px' : 0 }}>
         {children}
       </Box>
       

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,8 +7,8 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
-  background-color: #f4f6f8;
+  font-family: "Inter", "Roboto", sans-serif;
+  background-color: #f4f7f6;
 }
 
 .blog-content p {
@@ -21,7 +23,7 @@ body {
 }
 
 .blog-content a {
-  color: #1976d2;
+  color: #0288d1;
   text-decoration: underline;
 }
 
@@ -30,3 +32,4 @@ body {
   padding-left: 22px;
   margin-bottom: 16px;
 }
+

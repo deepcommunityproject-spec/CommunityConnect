@@ -10,24 +10,21 @@ import {
   useTheme,
   Snackbar,
   Alert,
+  Divider,
 } from "@mui/material";
 
 // Icons
 import EmailIcon from "@mui/icons-material/Email";
-import PhoneIcon from "@mui/icons-material/Phone";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+
+const ORANGE = '#e65100';
+const ORANGE_LIGHT = '#fff3e0';
+const DARK = '#1a1a2e';
 
 const Contact = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
 
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -37,138 +34,117 @@ const Contact = () => {
 
   const contactInfo = [
     {
-      icon: <EmailIcon sx={{ fontSize: 30 }} />,
-      title: "Email",
+      icon: <EmailIcon sx={{ fontSize: 28 }} />,
+      title: "Email Us",
       content: "support@CommunityConnect.com",
       link: "mailto:support@CommunityConnect.com",
     },
     {
-      icon: <PhoneIcon sx={{ fontSize: 30 }} />,
-      title: "Phone",
-      content: "+91 9876543210",
-      link: "tel:+919876543210",
-    },
-    {
-      icon: <AccessTimeIcon sx={{ fontSize: 30 }} />,
+      icon: <AccessTimeIcon sx={{ fontSize: 28 }} />,
       title: "Office Hours",
       content: "Mon - Fri, 9:00 AM - 6:00 PM",
       link: null,
     },
     {
-      icon: <LocationOnIcon sx={{ fontSize: 30 }} />,
-      title: "Address",
+      icon: <LocationOnIcon sx={{ fontSize: 28 }} />,
+      title: "Our Address",
       content: "123 Community Street, Mumbai, India",
       link: null,
     },
   ];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Simulate form submission
-    setSnackbar({
-      open: true,
-      message: "Thank you for your message! We'll get back to you soon.",
-      severity: "success",
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
-  };
-
   return (
-    <>
-      <Box
-        sx={{
-          minHeight: "calc(100vh - 64px)", // Account for navbar height
-          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-        }}
-      >
-        {/* Hero Section */}
-        <Box
-          sx={{
-            py: { xs: 6, sm: 8, md: 10 },
-            px: { xs: 2, sm: 3, md: 4 },
-            textAlign: "center",
-          }}
-        >
-          <Container maxWidth="lg">
+    <Box sx={{ minHeight: "100vh", backgroundColor: '#f9f9f9' }}>
+      
+      {/* ── Header Section ──────────────────────────────── */}
+      <Box sx={{ pt: '100px', pb: 6, backgroundColor: '#ffffff', borderBottom: '1px solid #eee' }}>
+        <Container maxWidth="lg">
+          <Box sx={{ textAlign: 'center' }}>
             <Typography
-              variant={isMobile ? "h3" : "h2"}
+              variant="overline"
+              sx={{ color: ORANGE, fontWeight: 700, letterSpacing: 2, fontSize: '0.75rem', display: 'block', mb: 1 }}
+            >
+              Get In Touch
+            </Typography>
+            <Typography
+              variant="h2"
               component="h1"
               sx={{
-                fontWeight: 700,
-                color: "white",
-                mb: 3,
+                fontWeight: 800,
+                color: DARK,
+                fontSize: { xs: '2.2rem', md: '3rem' },
+                mb: 2,
               }}
             >
               Contact Us
             </Typography>
             <Typography
-              variant="h6"
+              variant="body1"
               sx={{
-                color: "rgba(255,255,255,0.9)",
+                color: '#555',
+                fontSize: { xs: '1rem', md: '1.1rem' },
+                lineHeight: 1.8,
                 maxWidth: 600,
-                mx: "auto",
-                lineHeight: 1.6,
+                mx: 'auto',
               }}
             >
               Have questions or need assistance? We are here to help volunteers
-              and organizers with any inquiries.
+              and organisers with any inquiries.
             </Typography>
-          </Container>
-        </Box>
+          </Box>
+        </Container>
+      </Box>
 
-        {/* Contact Info Cards */}
+      {/* ── Contact Info Cards ────────────────────────────── */}
+      <Box sx={{ py: { xs: 6, md: 10 } }}>
         <Container maxWidth="lg">
-          <Grid container spacing={3} justifyContent="center">
+          <Grid container spacing={4} justifyContent="center">
             {contactInfo.map((info, index) => (
-              <Grid item xs={12} sm={6} md={3} sx={{ flex: { xs: '1 1 100%', sm: '1 1 45%', md: '1 1 22%' } }} key={index}>
+              <Grid item xs={12} sm={6} md={4} key={index}>
                 <Card
                   component={info.link ? "a" : "div"}
                   href={info.link || undefined}
                   sx={{
                     height: "100%",
-                    background: "rgba(255, 255, 255, 0.95)",
-                    backdropFilter: "blur(10px)",
-                    borderRadius: "16px",
+                    p: 2,
+                    borderRadius: '12px',
+                    border: '1px solid #e8e8e8',
+                    borderTop: `3px solid ${ORANGE}`,
+                    backgroundColor: '#fff',
                     textDecoration: "none",
                     display: "block",
-                    transition: "transform 0.3s, box-shadow 0.3s",
-                    "&:hover": info.link
-                      ? {
-                          transform: "translateY(-4px)",
-                          boxShadow: "0 12px 40px rgba(0,0,0,0.2)",
-                        }
-                      : {},
+                    transition: 'all 0.2s ease',
+                    boxShadow: 'none',
+                    '&:hover': info.link ? {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 6px 20px rgba(0,0,0,0.05)',
+                    } : {},
                   }}
                 >
                   <CardContent sx={{ textAlign: "center" }}>
                     <Box
                       sx={{
-                        width: 60,
-                        height: 60,
-                        borderRadius: "50%",
-                        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                        width: 56,
+                        height: 56,
+                        borderRadius: "10px",
+                        backgroundColor: ORANGE_LIGHT,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         mx: "auto",
-                        mb: 2,
-                        color: "white",
+                        mb: 2.5,
+                        color: ORANGE,
                       }}
                     >
                       {info.icon}
                     </Box>
                     <Typography
                       variant="h6"
-                      sx={{ fontWeight: 600, mb: 1, color: "#1a1a2e" }}
+                      sx={{ fontWeight: 700, mb: 1, color: DARK, fontSize: '1.1rem' }}
                     >
                       {info.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: '#666', lineHeight: 1.6 }}>
                       {info.content}
                     </Typography>
                   </CardContent>
@@ -178,6 +154,17 @@ const Contact = () => {
           </Grid>
         </Container>
       </Box>
+
+      {/* ── Footer Message ─────────────────────────────── */}
+      <Container maxWidth="md" sx={{ textAlign: 'center', pb: 10 }}>
+        <Divider sx={{ mb: 6 }} />
+        <Typography variant="h5" sx={{ fontWeight: 700, color: DARK, mb: 2 }}>
+          We generally respond within 24 hours
+        </Typography>
+        <Typography variant="body1" sx={{ color: '#777' }}>
+          For urgent matters, please mark your email subject as "URGENT".
+        </Typography>
+      </Container>
 
       <Snackbar
         open={snackbar.open}
@@ -189,7 +176,7 @@ const Contact = () => {
           {snackbar.message}
         </Alert>
       </Snackbar>
-    </>
+    </Box>
   );
 };
 

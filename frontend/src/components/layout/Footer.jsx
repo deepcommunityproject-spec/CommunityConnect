@@ -1,117 +1,190 @@
-import { Box, Typography, Grid, Link, Stack } from "@mui/material";
+import { Box, Typography, Link, Stack, Divider } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
 const Footer = () => {
-  // Check if user is logged in
   const isLoggedIn = !!localStorage.getItem("accessToken");
-  
-  // Check if current page is a public page (should show dark footer for non-logged-in users)
+
   const currentPath = window.location.pathname;
-  const isPublicPage = currentPath === '/' || 
-                      currentPath === '/about' || 
-                      currentPath === '/faq' || 
-                      currentPath === '/contact' ||
-                      currentPath === '/terms' ||
-                      currentPath === '/privacy' ||
-                      currentPath === '/login' ||
-                      currentPath === '/register' ||
-                      currentPath === '/forgot-password' ||
-                      currentPath === '/reset-password';
+  const isPublicPage =
+    currentPath === "/" ||
+    currentPath === "/about" ||
+    currentPath === "/faq" ||
+    currentPath === "/contact" ||
+    currentPath === "/terms" ||
+    currentPath === "/privacy" ||
+    currentPath === "/login" ||
+    currentPath === "/register" ||
+    currentPath === "/forgot-password" ||
+    currentPath === "/reset-password";
 
-  // Simple white footer for all logged-in users (protected routes)
-  if (isLoggedIn) {
+  // Minimal footer for logged-in / protected pages
+  if (isLoggedIn || !isPublicPage) {
     return (
       <Box
         sx={{
-          py: 3,
+          py: 2.5,
           textAlign: "center",
-          backgroundColor: "#ffffff",
+          backgroundColor: "#f4f7f6",
+          borderTop: "1px solid #e0eded",
           marginTop: "auto",
         }}
       >
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{ color: "#999", fontSize: "0.8rem" }}>
           © 2026 CommunityConnect. All rights reserved.
         </Typography>
       </Box>
     );
   }
 
-  // Simple white footer for non-logged-in users on dashboard pages
-  if (!isPublicPage) {
-    return (
-      <Box
-        sx={{
-          py: 3,
-          textAlign: "center",
-          backgroundColor: "#ffffff",
-          marginTop: "auto",
-        }}
-      >
-        <Typography variant="body2" color="text.secondary">
-          © 2026 CommunityConnect. All rights reserved.
-        </Typography>
-      </Box>
-    );
-  }
-
-  // Dark footer for non-logged-in users on public pages only
+  // Full footer for public pages
   return (
-    <Box sx={{ 
-      backgroundColor: "#1a1a2e", 
-      color: "white", 
-      py: 4,
-      marginTop: "auto",
-      position: "relative",
-      bottom: 0
-    }}>
-      <Box sx={{ maxWidth: "lg", mx: "auto", px: { xs: 2, md: 4 } }}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h6" sx={{ fontWeight: 700, mb: 2, color: "#667eea" }}>
+    <Box
+      sx={{
+        backgroundColor: '#0d2137',
+        color: "white",
+        pt: 6,
+        pb: 3,
+        marginTop: "auto",
+      }}
+    >
+      <Box sx={{ maxWidth: "lg", mx: "auto", px: { xs: 3, md: 6 } }}>
+        {/* Top row */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 4, md: 8 },
+            mb: 5,
+          }}
+        >
+          {/* Brand column */}
+          <Box sx={{ flex: "1 1 40%" }}>
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: 800,
+                mb: 1.5,
+                color: '#e65100',
+                letterSpacing: "-0.01em",
+                fontSize: "1.15rem",
+              }}
+            >
               CommunityConnect
             </Typography>
-            <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-              Connecting volunteers with organizations to create positive change.
+            <Typography
+              variant="body2"
+              sx={{
+                color: "rgba(255,255,255,0.6)",
+                lineHeight: 1.75,
+                maxWidth: 300,
+                fontSize: "0.875rem",
+              }}
+            >
+              Connecting volunteers with organisations to build stronger,
+              more resilient communities across Australia.
             </Typography>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 2 }}>
-              Quick Links
-            </Typography>
-            <Stack spacing={1}>
-              <Link component={RouterLink} to="/" sx={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
-                Home
-              </Link>
-              <Link component={RouterLink} to="/about" sx={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
-                About
-              </Link>
-              <Link component={RouterLink} to="/faq" sx={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
-                FAQ
-              </Link>
-              <Link component={RouterLink} to="/contact" sx={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
-                Contact
-              </Link>
-            </Stack>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 2 }}>
-              Legal
-            </Typography>
-            <Stack spacing={1}>
-              <Link component={RouterLink} to="/terms" sx={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
-                Terms & Conditions
-              </Link>
-              <Link component={RouterLink} to="/privacy" sx={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>
-                Privacy Policy
-              </Link>
-            </Stack>
-          </Grid>
-        </Grid>
-        <Box sx={{ mt: 3, pt: 2, borderTop: "1px solid rgba(255,255,255,0.1)", textAlign: "center" }}>
-          <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.5)" }}>
-            © 2026 CommunityConnect. All rights reserved.
-          </Typography>
+          </Box>
+
+          {/* Links columns */}
+          <Box
+            sx={{
+              display: "flex",
+              gap: { xs: 4, md: 8 },
+              flex: "1 1 60%",
+            }}
+          >
+            {/* Quick Links */}
+            <Box>
+              <Typography
+                variant="overline"
+                sx={{
+                  fontWeight: 700,
+                  color: "rgba(255,255,255,0.4)",
+                  fontSize: "0.7rem",
+                  letterSpacing: 1.5,
+                  display: "block",
+                  mb: 1.5,
+                }}
+              >
+                Quick Links
+              </Typography>
+              <Stack spacing={1.2}>
+                {[
+                  { label: "Home", to: "/" },
+                  { label: "About", to: "/about" },
+                  { label: "FAQ", to: "/faq" },
+                  { label: "Contact", to: "/contact" },
+                ].map((item) => (
+                  <Link
+                    key={item.to}
+                    component={RouterLink}
+                    to={item.to}
+                    sx={{
+                      color: "rgba(255,255,255,0.65)",
+                      textDecoration: "none",
+                      fontSize: "0.875rem",
+                      transition: "color 0.15s ease",
+                      "&:hover": { color: "#e65100" },
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </Stack>
+            </Box>
+
+            {/* Legal */}
+            <Box>
+              <Typography
+                variant="overline"
+                sx={{
+                  fontWeight: 700,
+                  color: "rgba(255,255,255,0.4)",
+                  fontSize: "0.7rem",
+                  letterSpacing: 1.5,
+                  display: "block",
+                  mb: 1.5,
+                }}
+              >
+                Legal
+              </Typography>
+              <Stack spacing={1.2}>
+                {[
+                  { label: "Terms & Conditions", to: "/terms" },
+                  { label: "Privacy Policy", to: "/privacy" },
+                ].map((item) => (
+                  <Link
+                    key={item.to}
+                    component={RouterLink}
+                    to={item.to}
+                    sx={{
+                      color: "rgba(255,255,255,0.65)",
+                      textDecoration: "none",
+                      fontSize: "0.875rem",
+                      transition: "color 0.15s ease",
+                      "&:hover": { color: "#e65100" },
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </Stack>
+            </Box>
+          </Box>
         </Box>
+
+        {/* Bottom bar */}
+        <Divider sx={{ borderColor: "rgba(255,255,255,0.08)", mb: 3 }} />
+        <Typography
+          variant="body2"
+          sx={{
+            color: "rgba(255,255,255,0.35)",
+            textAlign: "center",
+            fontSize: "0.8rem",
+          }}
+        >
+          © 2026 CommunityConnect. All rights reserved.
+        </Typography>
       </Box>
     </Box>
   );

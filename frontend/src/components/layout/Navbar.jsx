@@ -409,8 +409,9 @@ const UnifiedNavbar = () => {
       <AppBar
         position="fixed"
         sx={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+          background: '#ffffff',
+          boxShadow: '0 1px 0 rgba(0,0,0,0.08)',
+          color: '#1a1a2e',
         }}
       >
         <Container maxWidth="lg">
@@ -427,16 +428,28 @@ const UnifiedNavbar = () => {
               }}
             >
               <Box
-                component="img"
-                src={logo}
-                alt="CommunityConnect"
                 sx={{
-                  height: 50,
-                  width: 'auto',
-                  width:'100px',
-                  mr: 1,
+                  backgroundColor: 'white',
+                  borderRadius: '10px',
+                  padding: '4px 8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
                 }}
-              />
+              >
+                <Box
+                  component="img"
+                  src={logo}
+                  alt="CommunityConnect"
+                  sx={{
+                    height: 42,
+                    width: 'auto',
+                    maxWidth: '90px',
+                    display: 'block',
+                  }}
+                />
+              </Box>
             </Box>
 
             {/* Desktop Navigation */}
@@ -450,11 +463,12 @@ const UnifiedNavbar = () => {
                     component={RouterLink}
                     to={item.path}
                     sx={{
-                      color: 'white',
+                      color: '#333',
                       textTransform: 'none',
                       fontWeight: 500,
                       '&:hover': {
-                        backgroundColor: 'rgba(255,255,255,0.1)',
+                        backgroundColor: 'rgba(0,0,0,0.04)',
+                        color: '#e65100',
                       },
                     }}
                   >
@@ -470,17 +484,17 @@ const UnifiedNavbar = () => {
                       component={RouterLink} 
                       to="/opportunities"
                       sx={{
-                        color: 'rgba(255, 255, 255, 0.9)',
+                        color: '#333',
                         fontWeight: 500,
                         fontSize: '0.95rem',
                         textTransform: 'none',
                         borderRadius: '8px',
                         px: 2,
                         py: 1,
-                        transition: 'all 0.3s ease',
+                        transition: 'all 0.2s ease',
                         '&:hover': {
-                          backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                          color: 'white',
+                          backgroundColor: 'rgba(0,0,0,0.04)',
+                          color: '#e65100',
                           transform: 'translateY(-1px)',
                         }
                       }}
@@ -492,17 +506,17 @@ const UnifiedNavbar = () => {
                       component={RouterLink} 
                       to="/volunteer-blogs"
                       sx={{
-                        color: 'rgba(255, 255, 255, 0.9)',
+                        color: '#333',
                         fontWeight: 500,
                         fontSize: '0.95rem',
                         textTransform: 'none',
                         borderRadius: '8px',
                         px: 2,
                         py: 1,
-                        transition: 'all 0.3s ease',
+                        transition: 'all 0.2s ease',
                         '&:hover': {
-                          backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                          color: 'white',
+                          backgroundColor: 'rgba(0,0,0,0.04)',
+                          color: '#e65100',
                           transform: 'translateY(-1px)',
                         }
                       }}
@@ -514,17 +528,17 @@ const UnifiedNavbar = () => {
                       component={RouterLink} 
                       to="/history"
                       sx={{
-                        color: 'rgba(255, 255, 255, 0.9)',
+                        color: '#333',
                         fontWeight: 500,
                         fontSize: '0.95rem',
                         textTransform: 'none',
                         borderRadius: '8px',
                         px: 2,
                         py: 1,
-                        transition: 'all 0.3s ease',
+                        transition: 'all 0.2s ease',
                         '&:hover': {
-                          backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                          color: 'white',
+                          backgroundColor: 'rgba(0,0,0,0.04)',
+                          color: '#e65100',
                           transform: 'translateY(-1px)',
                         }
                       }}
@@ -726,8 +740,8 @@ const UnifiedNavbar = () => {
                           my: 0.5,
                           transition: 'all 0.2s ease',
                           '&:hover': {
-                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                            color: '#667eea',
+                            backgroundColor: 'rgba(2, 136, 209, 0.1)',
+                            color: '#0288d1',
                           },
                         },
                       }}
@@ -764,21 +778,20 @@ const UnifiedNavbar = () => {
                       color="inherit"
                       onClick={handleLogout}
                       sx={{
-                        color: 'rgba(255, 255, 255, 0.9)',
+                        color: '#333',
                         fontWeight: 600,
                         fontSize: '0.95rem',
                         textTransform: 'none',
                         borderRadius: '8px',
                         px: 2,
                         py: 1,
-                        transition: 'all 0.3s ease',
-                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        transition: 'all 0.2s ease',
+                        backgroundColor: 'rgba(0,0,0,0.04)',
+                        border: '1px solid rgba(0,0,0,0.1)',
                         '&:hover': {
-                          backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                          color: 'white',
-                          transform: 'translateY(-1px)',
-                          border: '1px solid rgba(255, 255, 255, 0.3)',
+                          backgroundColor: 'rgba(230,81,0,0.08)',
+                          color: '#e65100',
+                          border: '1px solid rgba(230,81,0,0.2)',
                         }
                       }}
                     >
@@ -795,27 +808,32 @@ const UnifiedNavbar = () => {
                       color="inherit"
                       onClick={() => navigate('/login')}
                       sx={{
-                        borderColor: 'white',
-                        color: 'white',
+                        borderColor: '#e65100',
+                        color: '#e65100',
                         textTransform: 'none',
                         '&:hover': {
-                          borderColor: 'white',
-                          backgroundColor: 'rgba(255,255,255,0.1)',
+                          borderColor: '#e65100',
+                          backgroundColor: 'rgba(230,81,0,0.04)',
                         },
                       }}
                     >
                       Login
                     </Button>
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       onClick={() => navigate('/register')}
                       sx={{
-                        backgroundColor: '#ffd700',
-                        color: '#333',
+                        borderColor: '#e65100',
+                        color: 'white',
                         textTransform: 'none',
                         fontWeight: 600,
+                        borderRadius: '8px',
+                        px: 2.5,
+                        backgroundColor: '#e65100',
                         '&:hover': {
-                          backgroundColor: '#ffed4e',
+                          backgroundColor: '#bf360c',
+                          borderColor: '#bf360c',
+                          color: 'white',
                         },
                       }}
                     >
@@ -849,7 +867,7 @@ const UnifiedNavbar = () => {
           PaperProps={{
             sx: {
               width: 280,
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: '#1a1a2e',
             },
           }}
         >
