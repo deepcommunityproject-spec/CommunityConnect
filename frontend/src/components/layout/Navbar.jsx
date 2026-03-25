@@ -533,7 +533,7 @@ const UnifiedNavbar = () => {
                         }
                       }}
                     >
-                      Blogs
+                      Blogs By Organizer
                     </Button>
                     <Button 
                       color="inherit" 
@@ -555,7 +555,7 @@ const UnifiedNavbar = () => {
                         }
                       }}
                     >
-                      History
+                     Your Application History 
                     </Button>
                     <Button 
                       color="inherit" 
